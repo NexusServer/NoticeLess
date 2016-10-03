@@ -106,13 +106,14 @@ this.noticelist.save();
 }
 public boolean delNotice(int index){
 List<String> newNotice = this.noticelist.getStringList("Notice");
-if(newNotice.get(index)!=null){
+try{
 newNotice.remove(index);
 this.noticelist.set("Notice",newNotice);
 this.noticelist.save();
 return true;
-}else{
-return false;}
+}catch(IndexOutofBoundsException){
+return false;
+}
 }
    public void registerCommand(String name, String descript, String usage, String permission) {
       SimpleCommandMap commandMap = getServer().getCommandMap();
