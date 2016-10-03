@@ -46,12 +46,9 @@ public class noticelist extends PluginBase implements Listener {
       this.getDataFolder().mkdirs();
       this.registerCommand("공지","※ /공지 명령어 ※ 명령어를 보여줍니다","/공지 추가|목록|삭제|명령어","abc.command.*");
       
-      this.noticelist = new Config(this.getDataFolder() + "/noticelist.json", Config.JSON);
-      this.noticelist.set("가나다라", "가나다라내용");
-      this.noticelist.save();
-      this.noticelist.get("가나다라");
-      this.getServer().getScheduler().scheduleDelayedRepeatingTask(new Tick(this), 200, 400, false);
+      this.noticelist = new Config(this.getDataFolder() + "/noticelist.json", Config.JSON); this.getServer().getScheduler().scheduleDelayedRepeatingTask(new Tick(this), 200, 400, false);
    }
+   
    @Override
    public void onDisable(){
       this.noticelist.save();
@@ -64,31 +61,28 @@ public class noticelist extends PluginBase implements Listener {
          if (sender.isOp()) {
             switch (args[0]) {
             case "추가":
-                List<String> list = this.noticelist.getStringList("Notice");
-                list.add(String.join(" ", args).replace("추가",""));
-                this.noticelist.set("Notice", list);
-                this.noticelist.save();
+                this.addNotice(String.join(" ", args).replace("추가 ","")));
                 return true;
             case "삭제":
-                int index = Integer.parseInt(args[1]);
-                if (this.noticelist.getStringList("Notice").get(index) != null) {
-                   List<String> list1 = this.noticelist.getStringList("Notice");
-                   list1.remove(index);
-                   this.noticelist.set("Notice",list1);
-                   this.noticelist.save();
-                  }
-                  {
-                  return true;
-               }
+            try{
+                if(this.delNotice(Integer.parseInt(args[1]))){
+                }else{
+                sender.sendMessage(TextFormat.colorize("&c"+args[1]"번호의 공지가 없습니다"));
+                return true;
+                }
+                }catch(Exception e){
+                sender.sendMessage(TextFormat.colorize("&c"+args[1]"&4는 숫자가 아닙니다"));
+                return true;
+                }
                case "목록":
                 for (int i = 0; i<= this.noticelist.getStringList("Notice").size(); i++) {
-                   sender.sendMessage(i + "  :  " + this.noticelist.getStringList("Notice").get(i));
+                   sender.sendMessage(i + "  :  "+this.noticelist.getStringList("Notice").get(i));
                 }
                 return true;
                case "명령어":
               	 sender.sendMessage(
               	         " --------------------\n"
-              	        +"|     공지 명령어              |\n"
+              	        +"|     공지 명령어             |\n"
               	        +"| /공지 명령어    (명령어 목록)  |\n"
               	        +"| /공지 추가    (&색코드 내용)  |\n"
               	        +"| /공지 삭제    (&색코드 내용)  |\n"
@@ -104,7 +98,22 @@ public class noticelist extends PluginBase implements Listener {
       return true;
       
    }
-
+public void addNotice(String str){
+List<String> newNotice = this.noticelist.getStringList("Notice");
+newNotice.add(str);
+this.noticelist.set("Notice",newNotice);
+this.noticelist.save();
+}
+public boolean delNotice(int index){
+List<String> newNotice = this.noticelist.getStringList("Notice");
+if(newNotice.get(index)!=null){
+newNotice.remove(index);
+this.noticelist.set("Notice",newNotice);
+this.noticelist.save();
+return true;
+}else{
+return false;}
+}
    public void registerCommand(String name, String descript, String usage, String permission) {
       SimpleCommandMap commandMap = getServer().getCommandMap();
       PluginCommand<noticelist> command = new PluginCommand<noticelist>(name, this);
