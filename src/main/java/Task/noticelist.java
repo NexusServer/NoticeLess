@@ -67,11 +67,11 @@ public class noticelist extends PluginBase implements Listener {
             try{
                 if(this.delNotice(Integer.parseInt(args[1]))){
                 }else{
-                sender.sendMessage(TextFormat.colorize("&c"+args[1]"번호의 공지가 없습니다"));
+                sender.sendMessage(TextFormat.colorize("&c"+args[1]+"번호의 공지가 없습니다"));
                 return true;
                 }
                 }catch(Exception e){
-                sender.sendMessage(TextFormat.colorize("&c"+args[1]"&4는 숫자가 아닙니다"));
+                sender.sendMessage(TextFormat.colorize("&c"+args[1]+"&4는 숫자가 아닙니다"));
                 return true;
                 }
                case "목록":
