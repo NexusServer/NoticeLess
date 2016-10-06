@@ -82,7 +82,7 @@ public class noticelist extends PluginBase implements Listener {
                case "명령어":
               	 sender.sendMessage(
               	         " --------------------\n"
-              	        +"|     공지 명령어             |\n"
+              	        +"|       공지 명령어              |\n"
               	        +"| /공지 명령어    (명령어 목록)  |\n"
               	        +"| /공지 추가    (&색코드 내용)  |\n"
               	        +"| /공지 삭제    (&색코드 내용)  |\n"
@@ -130,7 +130,8 @@ return false;}
       @Override
       public void onRun(int currentTick) {
          for (Player player : Server.getInstance().getOnlinePlayers().values()) {
-        	 this.owner.getServer().broadcastMessage(TextFormat.colorize("&e[Organic]"+noticelist.getStringList("Notice"))); //채팅창 출력
+        	 this.owner.getServer().broadcastMessage(TextFormat.colorize("&e[Organic]"+noticelist.getStringList("Notice")
+        			 .get(owner.number % noticelist.getStringList("Notice").size())));//채팅창 출력
         	 player.sendPopup(TextFormat.colorize("&e[Organic] "+noticelist.getStringList("Notice")  //팝업 출력
                   .get(owner.number % noticelist.getStringList("Notice").size())));
 
