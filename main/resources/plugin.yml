@@ -1,0 +1,9 @@
+name: notice
+main: Task.noticelist
+author: MCJINWOO
+version: T-0.0.1
+api: ["1.0.0"]
+
+permissions:
+ abc.command.*:
+  default: OP
