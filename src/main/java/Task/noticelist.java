@@ -129,14 +129,14 @@ return false;}
       }
       @Override
       public void onRun(int currentTick) {
-         for (Player player : Server.getInstance().getOnlinePlayers().values()) {
-        	 this.owner.getServer().broadcastMessage(TextFormat.colorize("&e[Organic]"+noticelist.getStringList("Notice")
-        			 .get(owner.number % noticelist.getStringList("Notice").size())));//채팅창 출력
-        	 player.sendPopup(TextFormat.colorize("&e[Organic] "+noticelist.getStringList("Notice")  //팝업 출력
-                  .get(owner.number % noticelist.getStringList("Notice").size())));
+          for (Player player : Server.getInstance().getOnlinePlayers().values()) {          
+             player.sendMessage(TextFormat.colorize("&e[Organic]"+noticelist.getStringList("Notice")
+               .get(owner.number % noticelist.getStringList("Notice").size())));//채팅창 출력
+             player.sendPopup(TextFormat.colorize("&e[Organic] "+noticelist.getStringList("Notice")  //팝업 출력
+                 .get(owner.number % noticelist.getStringList("Notice").size())));
 
-         }
-         owner.number++;
-      }
-   }
-}
+          }
+          owner.number++;
+       }
+    }
+ }
